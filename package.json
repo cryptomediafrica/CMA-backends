@@ -1,0 +1,17 @@
+{
+  "name": "c",
+  "version": "1.0.0",
+  "main": "blockchain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.70.0"
+  },
+  "dependencies": {
+    "moralis": "^1.5.7"
+  },
+  "description": ""
+}
