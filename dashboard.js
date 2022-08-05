@@ -1,4 +1,3 @@
-// connect to Moralis server
 const serverUrl = "https://0erlqbhytxjl.usemoralis.com:2053/server";
 const appId = "KFNDGj1htqTiQygjIwWjHuSxt4QP6OXb2tQ19pT4";
 Moralis.start({ serverUrl, appId });
@@ -44,17 +43,16 @@ function buildTableTransactions(_data){
       table.innerHTML += row
   }
 }
+// get token Balances
 
-// get Native Balances
-
-  async function Nativebalances(){
+  async function Tokenbalances(){
   const chainToQuery = 'Eth'
   const balances = await Moralis.Web3API.account.getTokenBalances({chain: chainToQuery}).then(buildTableBalances);
 
 }
 function buildTableBalances(data){
   console.log(data)
-  document.getElementById("resultnativebalances").innerHTML = `<table class="table table-dark table-striped" id="balancesTable">
+  document.getElementById("resulttokenbalances").innerHTML = `<table class="table table-dark table-striped" id="balancesTable">
                                                           </table>`;
   const table = document.getElementById("balancesTable");
   const rowHeader = `<thead>
@@ -110,37 +108,7 @@ function buildTableBalance(data){
   }
 }
 
-//build table NFTs
 
-async function getNFTs(){
-  const chainToQuery = 'Eth'
-  const nft = await Moralis.Web3API.account.getNFTs({chain: chainToQuery}).then(buildTableNFT);
-}
-
-function buildTableNFT(_data){
-  console.log(_data)
-  let data = _data.result;
-  console.log(data)
-  document.getElementById("resultNFT").innerHTML = `<table class="table table-dark table-striped" id="nftTable">
-                                                          </table>`;
-  const table = document.getElementById("nftTable");
-  const rowHeader = `<thead>
-                          <tr>
-                              <th>ID</th>
-                              <th>Type</th>
-                              <th>Contract</th>
-                          </tr>
-                      </thead>`
-  table.innerHTML += rowHeader;
-  for (let i=0; i < data.length; i++){
-      let row = `<tr>
-                      <td>${data[i].token_id}</td>
-                      <td>${data[i].contract_type}</td>
-                      <td>${data[i].token_address}</td>
-                  </tr>`
-      table.innerHTML += row
-  }
-}
 
 // transfer ethereum
  transferETH = async () => {
@@ -190,41 +158,4 @@ transferNFTs = async () => {
 }
 document.querySelector('#btn-transfer-selected-nft').onclick = transferNFTs;
 
-
-  async function getNFT() {
-   let address= document.getElementById("nftaddress").value;
-   let chain= document.getElementById("nftchain").value;
-
-   const options = { chain: chain,address: address};
-   const nfts = await Moralis.Web3.getNFTs(options);
-   console.log(nfts);
-
-   nfts.forEach( e => {
-     let url = e.token_uri;
-
-     
-     fetch(url)
-     .then(response => response.json())
-     .then(data => {
-
-      fixURL = (url) => {
-        if (url.startWith("ipfs")) {
-          return "https://ipfs.moralis.io:2053/ipfs/" + url.split("ipfs://").slice(-1)
-        }
-        else{
-          return url + "?format=json"
-        }
-      }
-          let currentDiv = document.getElementById("content");
-          
-          let content = `
-          <div class="nft">
-          <b>${data.name}</b>   
-          <img width=100 height=100 src="${data.image}"/>
-          <b>${data.token_address}</b> 
-          </div>
-          `
-          currentDiv.innerHTML += content;
-     })
-   })
- }
+  
