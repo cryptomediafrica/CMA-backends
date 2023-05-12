@@ -1,3 +1,12 @@
+﻿/*
+ * ==========================================================
+ * CLIENT SCRIPT
+ * ==========================================================
+ *
+ * Main JavaScript file used on both admin and client sides. © 2022 boxcoin.dev. All rights reserved.
+ * 
+ */
+
 'use strict';
 (function () {
 
